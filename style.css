@@ -154,13 +154,13 @@ button {
 
 /* Hover effect for all buttons */
 button:hover {
-    background-color: #45a049; /* Darker green on hover */
+    background-color: #45a049; 
 }
 
 /* Disabled button style */
 button:disabled {
-    background-color: #ccc; /* Grey background when disabled */
-    cursor: not-allowed; /* Not-allowed cursor */
+    background-color: #ccc; 
+    cursor: not-allowed; 
 }
 
 /* Specific button style for 'Go to Checkout' and 'Continue Shopping' */
