@@ -172,7 +172,7 @@ button:disabled {
 }
 
 .cart-toggle button:hover {
-    background-color: #e67e22; /* Darker orange on hover */
+    background-color: #e67e22;
 }
 
 .cart-toggle {
@@ -194,11 +194,11 @@ button:disabled {
 
 /* Specific button style for 'Ascending/Descending' */
 .sort-options button {
-    background-color: #ea3553; /* Red background */
+    background-color: #ea3553;
 }
 
 .sort-options button:hover {
-    background-color: #b02d2d; /* Darker red on hover */
+    background-color: #b02d2d;
 }
 
 /* Add to Cart Button */
