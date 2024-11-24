@@ -242,10 +242,13 @@
                     //this.sortLessons(); // Re-sort lessons after toggling order
                 },
                 validateFields() {
-                    //Trigger computed property reactivity
+                    const isValidName = this.validateName();
+                    const isValidPhone = this.validatePhone();
+                    const isValidEmail = this.validateEmail();
+                    const isValidPostcode = this.validatePostcode();
                 },
                 validateName() {
-                    return /^[a-zA-Z]+$/;
+                    return /^[a-zA-Z\s]+$/.test(this.customerFullName);
                 },
                 validatePhone() {
                     return /^\d+$/.test(this.customerPhone);
