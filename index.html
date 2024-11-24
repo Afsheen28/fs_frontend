@@ -165,11 +165,11 @@
         let webstore = new Vue({
             el: '#app',
             data: {
-                showCheckout: false, // Determines whether to show the cart page or lessons page
+                showCheckout: false, //Determines whether to show the cart page or lessons page
                 lessons: [], //lessons,
-                cart: [], // Shopping cart
-                sortBy: 'subject', // Default sorting attribute
-                sortOrder: 'asc', // Default sort order
+                cart: [], //Shopping cart
+                sortBy: 'subject', //Default sorting attribute
+                sortOrder: 'asc', //Default sort order
                 searchQuery: '',
                 isLoading: false,
                 customerFullName: '',
@@ -197,7 +197,7 @@
             
             methods: {
                 toggleCart() {
-                    // Toggle between showing the cart and the lessons
+                    //Toggle between showing the cart and the lessons
                     this.showCheckout = !this.showCheckout;
                 },
                 addToCart(lesson) {
