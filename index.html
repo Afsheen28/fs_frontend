@@ -208,7 +208,7 @@
                         this.cart.push({ lesson, quantity: 1 }); //Add new item with quantity 1
                     }
                     if (lesson.availability > 0) {
-                        lesson.availability--; // Reduce availability by 1
+                        lesson.availability--; //Reduce availability by 1
                     }
                 },
                 removeFromCart(item, index) {
@@ -217,7 +217,7 @@
                     if (lesson) {
                         lesson.availability += item.quantity; //Add back availability for the lesson
                     }
-                    // Remove the lesson from the cart
+                    //Remove the lesson from the cart
                     this.cart.splice(index, 1);
                 },
                 increaseQuantity(item) {
@@ -242,7 +242,7 @@
                     //this.sortLessons(); // Re-sort lessons after toggling order
                 },
                 validateFields() {
-                    // Trigger computed property reactivity
+                    //Trigger computed property reactivity
                 },
                 validateName() {
                     return /^[a-zA-Z]+$/;
@@ -312,34 +312,34 @@
                 },
                 async searchLessons() {
                     if (this.searchQuery.length < 1) {
-                        this.lessons = []; // Clear results if query is empty
+                        this.lessons = []; //Clear results if query is empty
                         return;
                     }
 
-                    this.isLoading = true; // Show loading state
+                    this.isLoading = true; //Show loading state
 
                     try {
-                        // Fetch search results from the server
+                        //Fetch search results from the server
                         const response = await fetch(`http://localhost:3000/search?searchTerm=${this.searchQuery}`);
                         const data = await response.json();
-                        this.lessons = data; // Set lessons to the search results
+                        this.lessons = data; //Set lessons to the search results
                         this.filterLessons();
                     } catch (error) {
                         console.error('Error fetching search results:', error);
                     } finally {
-                        this.isLoading = false; // Hide loading state
+                        this.isLoading = false; //Hide loading state
                     }
                 },
             },
     
-            // Filter lessons as user types
+            //Filter lessons as user types
             filterLessons() {
                 if (this.searchQuery.length < 1) {
-                    this.filteredLessons = this.lessons; // Show all lessons if search is empty
+                    this.filteredLessons = this.lessons; //Show all lessons if search is empty
                     return;
                 }
 
-                this.isLoading = true; // Start loading state
+                this.isLoading = true; //Start loading state
                 setTimeout(() => {
                     // Filter lessons that contain the search query (case insensitive)
                     this.filteredLessons = this.lessons.filter(lesson =>
