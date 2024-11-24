@@ -233,9 +233,9 @@ button:disabled {
 
 /* Position the cart at the top-right corner */
 .cart button{
-    position: fixed; /* Keeps the cart in place even when scrolling */
-    top: 10px;       /* Distance from the top */
-    right: 10px;     /* Distance from the right */
+    position: fixed;
+    top: 10px;      
+    right: 10px;    
     padding: 10px;
     /*border-radius: 5px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Optional shadow for better visibility */
