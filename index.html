@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!--<script src="/javascript/lessons.js"></script>-->
     <title>Lesson Information</title>
 </head>
 
@@ -66,7 +65,7 @@
                 <div class="checkout-total">
                     <p><strong>Total: £{{ cartTotal }}</strong></p>
                 </div>
-                <!--Input fields for Name and Phone-->
+                <!--Input fields for Checkout form-->
                 <div>
                     <label for="fullName">Full Name:</label>
                     <input type="text" v-model="customerFullName" @input="validateFields"
@@ -161,12 +160,12 @@
             el: '#app',
             data: {
                 showCheckout: false, //Determines whether to show the cart page or lessons page
-                lessons: [], //lessons,
+                lessons: [], 
                 filteredLessons: [],
                 cart: [], //Shopping cart
                 sortBy: 'subject', //Default sorting attribute
                 sortOrder: 'asc', //Default sort order
-                searchQuery: '',
+                searchQuery: '', 
                 isLoading: false,
                 customerFullName: '',
                 customerAddressLineOne: '',
@@ -183,10 +182,10 @@
                     .then(response => {
                         if (!response.ok) {
                             return response.text().then(errorMessage => {
-                                throw new Error(errorMessage); // Handle non-JSON responses
+                                throw new Error(errorMessage); //Handle non-JSON responses
                             });
                         }
-                        return response.json(); // Parse JSON if the response is OK
+                        return response.json(); //Parse JSON if the response is OK
                     })
                     .then(json => {
                         this.lessons = json;
@@ -200,7 +199,7 @@
             
             methods: {
                 toggleCart() {
-                    //Toggle between showing the cart and the lessons
+                    //Toggle/switch between showing the cart and the lessons
                     this.showCheckout = !this.showCheckout;
                 },
                 addToCart(lesson) {
@@ -215,7 +214,7 @@
                     }
                 },
                 removeFromCart(item, index) {
-                    // Add back availability for the lesson
+                    //Add back availability for the lesson
                     let lesson = this.lessons.find(lesson => lesson.id === item.id);
                     if (lesson) {
                         lesson.availability += item.quantity; //Add back availability for the lesson
@@ -236,13 +235,12 @@
                     }
                 },
                 sortLessons() {
-                    // Sorting method when the sorting options change
+                    //Sorting method when the sorting options change
                     this.filteredLessons = this.sortedLessons();
                 },
                 toggleSortOrder() {
-                    // Toggle sorting between ascending and descending
+                    //Toggle/switch sorting between ascending and descending
                     this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
-                    //this.sortLessons(); // Re-sort lessons after toggling order
                 },
                 validateFields() {
                     const isValidName = this.validateName();
@@ -251,7 +249,7 @@
                     const isValidPostcode = this.validatePostcode();
                 },
                 validateName() {
-                    return /^[a-zA-Z\s]+$/.test(this.customerFullName);
+                    return /^[a-zA-Z]+$/.test(this.customerFullName);
                 },
                 validatePhone() {
                     return /^\d+$/.test(this.customerPhone);
@@ -266,12 +264,7 @@
                     if (this.isFormValid) {
                         const orderData = {
                             name: this.customerFullName,
-                            //addressLineOne: this.customerAddressLineOne,
-                            //addressLineTwo: this.customerAddressLineTwo,
-                            //postcode: this.customerPostcode,
-                            //email: this.customerEmail,
                             phone: this.customerPhone,
-                            //availability: 1,
                             cart: this.cart.map(item => ({
                                 lessonId: item.lesson.id,
                                 quantity: item.quantity
@@ -303,10 +296,6 @@
                                 //Reset fields
                                 this.customerFullName = '';
                                 this.customerPhone = '';
-                                //this.customerEmail = '';
-                                //this.customerAddressLineOne = '';
-                                //this.customerAddressLineTwo = '';
-                                //this.customerPostcode = '';
                                 this.cart = []; //Clear cart after submission
                             })
                             .catch(error => {
@@ -318,20 +307,20 @@
                 },
                 async searchLessons() {
                     if (this.searchQuery.trim() === '') {
-                        this.filteredLessons = this.sortedLessons; // Show sorted lessons if search is empty
+                        this.filteredLessons = this.sortedLessons; //Show sorted lessons if search is empty
                         return;
                     }
 
                     this.isLoading = true;
 
                     try {
-                        // Fetch lessons from server based on the search term
+                        //Fetch lessons from server based on the search term
                         const response = await fetch(`https://webstore-lessons1.onrender.com/search?searchTerm=${this.searchQuery}`);
                         const data = await response.json();
-                        this.filteredLessons = data; // Update the filtered lessons
+                        this.filteredLessons = data; //Update the filtered lessons
                     } catch (error) {
                         console.error('Error fetching search results:', error);
-                        this.filteredLessons = []; // Clear results on error
+                        this.filteredLessons = []; //Clear results on error
                     } finally {
                         this.isLoading = false;
                     }
@@ -347,18 +336,18 @@
 
                 this.isLoading = true; //Start loading state
                 setTimeout(() => {
-                    // Filter lessons that contain the search query (case insensitive)
+                    //Filter lessons that contain the search query (case insensitive)
                     this.filteredLessons = this.lessons.filter(lesson =>
                         lesson.title.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
                         lesson.location.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
                         lesson.price.toLowerCase().includes(this.searchQuery.toLowerCase())
                     );
-                    this.isLoading = false; // End loading state
-                }, 300); // Optional debounce to delay search (e.g., 300ms)
+                    this.isLoading = false; //End loading state
+                }, 300); //Debounce to delay search (e.g., 300ms)
             },
             computed: {
                 sortedLessons() {
-                    // Sort based on `filteredLessons` to ensure search results are also sorted
+                    //Sort based on `filteredLessons` to ensure search results are also sorted
                     return [...this.filteredLessons].sort((a, b) => {
                         let attributeA = a[this.sortBy];
                         let attributeB = b[this.sortBy];
@@ -372,22 +361,22 @@
                             return this.sortOrder === 'asc' ? compare : -compare;
                         }
 
-                        return 0; // Default: no sorting
+                        return 0; //Default: no sorting
                     });
                 },
                 totalQuantity() {
                     return this.cart.reduce((total, item) => total + item.quantity, 0);
                 },
                 cartTotal() {
-                    // Computes the total cost of items in the cart
+                    //Total cost of items in the cart
                     return this.cart.reduce((total, item) => total + (item.lesson.price * item.quantity), 0).toFixed(2);
                 },
                 sortOrderLabel() {
-                    // Label for the sort order toggle button
+                    //Sort order toggle button
                     return this.sortOrder === 'asc' ? 'Ascending' : 'Descending';
                 },
                 isFormValid() {
-                    // Check if both name and phone number are valid
+                    //Checks if both name and phone number are valid
                     return this.validateName() && this.validatePhone();
                 }
             }
