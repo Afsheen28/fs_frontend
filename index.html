@@ -33,9 +33,9 @@
                 <ul v-if="filteredLessons.length > 0">
                     <li v-for="lesson in filteredLessons" :key="lesson._id">
                         <strong>{{ lesson.title }}</strong> - {{ lesson.location }} - {{ lesson.price }} - {{ lesson.availability }}
-                        <div v-else class="no-results">No lessons found.</div>
                     </li>
                 </ul>
+                <div v-else-if="!isLoading" class="no-results">No lessons found.</div>
             </div>
             <!--Navigation Buttons-->
             <div class="nav-buttons">
