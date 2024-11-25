@@ -32,7 +32,7 @@
                 <!-- Display Lessons -->
                 <ul>
                     <li v-for="lesson in filteredLessons" :key="lesson._id">
-                        <strong>{{ lesson.title }}</strong> - {{ lesson.location }} - {{ lesson.price }} - {{ lesson.availability }}
+                        <strong>{{ lesson.subject }}</strong> - {{ lesson.location }} - {{ lesson.price }} - {{ lesson.availability }}
                     </li>
                 </ul>
             </div>
@@ -167,7 +167,7 @@
             data: {
                 showCheckout: false, //Determines whether to show the cart page or lessons page
                 lessons: [], //lessons,
-                //filteredLessons: [],
+                filteredLessons: [],
                 cart: [], //Shopping cart
                 sortBy: 'subject', //Default sorting attribute
                 sortOrder: 'asc', //Default sort order
@@ -195,7 +195,7 @@
                     })
                     .then(json => {
                         this.lessons = json;
-                        //this.filteredLessons = json;
+                        this.filteredLessons = json;
                     })
                     .catch(error => {
                         console.error("Error:", error.message);
