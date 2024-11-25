@@ -27,7 +27,7 @@
             <div class="search-bar">
                 <i class="fa-solid fa-magnifying-glass"></i> <!--Search Icon-->
                 <input type="text" placeholder="Search here..." class="search-input" v-model="searchQuery" @input="searchLessons">
-                <div v-if="isLoading" class="loading-message">Loading...</div><!--Loading state-->               
+                <!--<div v-if="isLoading" class="loading-message">Loading...</div>Loading state-->               
                 
             </div>
             <!--Navigation Buttons-->
@@ -119,7 +119,7 @@
 
         <!-- Product List (shown when not in checkout) -->
         <div v-if="!showCheckout" class="lesson-list">
-            <!-- Loop through each lesson -->
+            <!-- Loop through each lesson --> <!--Using v-for for display of lesson list-->
             <div v-for="lesson in sortedLessons" :key="lesson.id" class="lesson-container">
                 <!-- Image -->
                 <img :src="lesson.imagePath" :alt="lesson.imageAlt" class="lesson-image">
