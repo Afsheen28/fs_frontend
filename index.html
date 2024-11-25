@@ -167,6 +167,7 @@
             data: {
                 showCheckout: false, //Determines whether to show the cart page or lessons page
                 lessons: [], //lessons,
+                filteredLessons: [],
                 cart: [], //Shopping cart
                 sortBy: 'subject', //Default sorting attribute
                 sortOrder: 'asc', //Default sort order
@@ -181,6 +182,7 @@
                 orderSubmitted: false,
                 confirmationMessage: '',
             },
+            //Fetch lessons 
             created: function () {
                 fetch("https://webstore-lessons1.onrender.com/").then(
                     function (response) {
@@ -189,6 +191,7 @@
                                 //alert(json);
                                 //console.log(json);
                                 webstore.lessons = json;
+                                webstore.filteredLessons = json;
                             }
                         )
                     }
@@ -232,14 +235,14 @@
                         item.lesson.availability++;
                     }
                 },
-                //sortLessons() {
+                sortLessons() {
                     // Sorting method when the sorting options change
-                    //this.sortedLessons();
-                //},
+                    this.sortedLessons();
+                },
                 toggleSortOrder() {
                     // Toggle sorting between ascending and descending
                     this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
-                    //this.sortLessons(); // Re-sort lessons after toggling order
+                    this.sortLessons(); // Re-sort lessons after toggling order
                 },
                 validateFields() {
                     const isValidName = this.validateName();
