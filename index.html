@@ -29,13 +29,12 @@
                 <i class="fa-solid fa-magnifying-glass"></i> <!--Search Icon-->
                 <input type="text" placeholder="Search here..." class="search-input" v-model="searchQuery" @input="searchLessons">
                 <div v-if="isLoading" class="loading-message">Loading...</div><!--Loading state-->               
-                <!-- Display Lessons
-                <ul v-if="filteredLessons.length > 0">
-                    <li v-for="lesson in filteredLessons" :key="lesson._id">
-                        <strong>{{ lesson.subject }}</strong> - {{ lesson.location }} - {{ lesson.price }} - {{ lesson.availability }}
+                <!-- Display Lessons -->
+                <ul>
+                    <li v-for="lesson in lessons" :key="lesson._id">
+                        <strong>{{ lesson.title }}</strong> - {{ lesson.location }} - {{ lesson.price }} - {{ lesson.availability }}
                     </li>
-                </ul> 
-                <div v-else-if="!isLoading" class="no-results">No lessons found.</div> -->
+                </ul>
             </div>
             <!-- Search Results (Displayed below the search bar) -->
             <!--Navigation Buttons-->
