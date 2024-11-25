@@ -34,7 +34,17 @@
                     <li v-for="lesson in filteredLessons" :key="lesson._id">
                         <strong>{{ lesson.subject }}</strong> - {{ lesson.location }} - {{ lesson.price }} - {{ lesson.availability }}
                     </li>
-                </ul> -->
+                </ul> 
+                <div v-else-if="!isLoading" class="no-results">No lessons found.</div> -->
+            </div>
+            <!-- Search Results (Displayed below the search bar) -->
+            <div class="search-results">
+                <ul v-if="filteredLessons.length > 0 && !isLoading">
+                    <li v-for="lesson in filteredLessons" :key="lesson._id">
+                        <strong>{{ lesson.subject }}</strong> - {{ lesson.location }} - £{{ lesson.price }} - {{ lesson.availability
+                        }} spots left
+                    </li>
+                </ul>
                 <div v-else-if="!isLoading" class="no-results">No lessons found.</div>
             </div>
             <!--Navigation Buttons-->
