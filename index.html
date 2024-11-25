@@ -184,18 +184,23 @@
             },
             //Fetch lessons 
             created: function () {
-                fetch("https://webstore-lessons1.onrender.com/").then(
-                    function (response) {
-                        response.json().then(
-                            function (json) {
-                                //alert(json);
-                                //console.log(json);
-                                webstore.lessons = json;
-                                webstore.filteredLessons = json;
-                            }
-                        )
-                    }
-                )
+                fetch("https://webstore-lessons1.onrender.com")
+                    .then(response => {
+                        if (!response.ok) {
+                            return response.text().then(errorMessage => {
+                                throw new Error(errorMessage); // Handle non-JSON responses
+                            });
+                        }
+                        return response.json(); // Parse JSON if the response is OK
+                    })
+                    .then(json => {
+                        this.lessons = json;
+                        this.filteredLessons = json;
+                    })
+                    .catch(error => {
+                        console.error("Error:", error.message);
+                        alert("Error fetching lessons: " + error.message);
+                    });
             },
             
             methods: {
