@@ -29,12 +29,7 @@
                 <i class="fa-solid fa-magnifying-glass"></i> <!--Search Icon-->
                 <input type="text" placeholder="Search here..." class="search-input" v-model="searchQuery" @input="searchLessons">
                 <div v-if="isLoading" class="loading-message">Loading...</div><!--Loading state-->               
-                <!-- Display Lessons -->
-                <ul>
-                    <li v-for="lesson in filteredLessons" :key="lesson._id">
-                        <strong>{{ lesson.subject }}</strong> - {{ lesson.location }} - {{ lesson.price }} - {{ lesson.availability }}
-                    </li>
-                </ul>
+                
             </div>
             <!--Navigation Buttons-->
             <div class="nav-buttons">
@@ -240,10 +235,10 @@
                         item.lesson.availability++;
                     }
                 },
-                //sortLessons() {
+                sortLessons() {
                     // Sorting method when the sorting options change
-                    //this.sortedLessons();
-                //},
+                    this.filteredLessons = this.sortedLessons();
+                },
                 toggleSortOrder() {
                     // Toggle sorting between ascending and descending
                     this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
@@ -323,19 +318,20 @@
                 },
                 async searchLessons() {
                     if (this.searchQuery.trim() === '') {
-                        this.filteredLessons = this.lessons; // Show all lessons if search query is empty
+                        this.filteredLessons = this.sortedLessons; // Show sorted lessons if search is empty
                         return;
                     }
 
                     this.isLoading = true;
 
                     try {
+                        // Fetch lessons from server based on the search term
                         const response = await fetch(`https://webstore-lessons1.onrender.com/search?searchTerm=${this.searchQuery}`);
                         const data = await response.json();
-                        this.filteredLessons = data; // Assign filtered lessons
+                        this.filteredLessons = data; // Update the filtered lessons
                     } catch (error) {
                         console.error('Error fetching search results:', error);
-                        this.filteredLessons = []; // Fallback to empty results
+                        this.filteredLessons = []; // Clear results on error
                     } finally {
                         this.isLoading = false;
                     }
@@ -362,23 +358,21 @@
             },
             computed: {
                 sortedLessons() {
-                    // Returns a sorted copy of the lessons array
-                    return [...this.lessons].sort((a, b) => {
+                    // Sort based on `filteredLessons` to ensure search results are also sorted
+                    return [...this.filteredLessons].sort((a, b) => {
                         let attributeA = a[this.sortBy];
                         let attributeB = b[this.sortBy];
-                        // If the attribute is a number, treat it as a number comparison
+
                         if (typeof attributeA === 'number' && typeof attributeB === 'number') {
                             return this.sortOrder === 'asc' ? attributeA - attributeB : attributeB - attributeA;
                         }
 
-                        // If the attribute is a string, treat it as a string comparison (case insensitive)
                         if (typeof attributeA === 'string' && typeof attributeB === 'string') {
                             const compare = attributeA.localeCompare(attributeB);
                             return this.sortOrder === 'asc' ? compare : -compare;
                         }
 
-                        // Handle cases where data might be undefined or null
-                        return 0; // Default to no sorting if types don't match or values are invalid
+                        return 0; // Default: no sorting
                     });
                 },
                 totalQuantity() {
