@@ -30,9 +30,10 @@
                 <input type="text" placeholder="Search here..." class="search-input" v-model="searchQuery" @input="searchLessons">
                 <div v-if="isLoading" class="loading-message">Loading...</div><!--Loading state-->               
                 <!-- Display Lessons -->
-                <ul>
+                <ul v-if="filteredLessons.length > 0">
                     <li v-for="lesson in filteredLessons" :key="lesson._id">
                         <strong>{{ lesson.title }}</strong> - {{ lesson.location }} - {{ lesson.price }} - {{ lesson.availability }}
+                        <div v-else class="no-results">No lessons found.</div>
                     </li>
                 </ul>
             </div>
@@ -322,25 +323,24 @@
                     }
                 },
                 async searchLessons() {
-                    if (this.searchQuery.length < 1) {
-                        this.lessons = []; //Clear results if query is empty
+                    if (this.searchQuery.trim() === '') {
+                        this.filteredLessons = this.lessons; // Show all lessons if search query is empty
                         return;
                     }
 
-                    this.isLoading = true; //Show loading state
+                    this.isLoading = true;
 
                     try {
-                        //Fetch search results from the server
                         const response = await fetch(`https://webstore-lessons1.onrender.com/search?searchTerm=${this.searchQuery}`);
                         const data = await response.json();
-                        this.lessons = data; //Set lessons to the search results
-                        this.filterLessons();
+                        this.filteredLessons = data; // Assign filtered lessons
                     } catch (error) {
                         console.error('Error fetching search results:', error);
+                        this.filteredLessons = []; // Fallback to empty results
                     } finally {
-                        this.isLoading = false; //Hide loading state
+                        this.isLoading = false;
                     }
-                },
+                }
             },
     
             //Filter lessons as user types
