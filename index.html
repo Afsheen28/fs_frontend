@@ -167,7 +167,7 @@
             data: {
                 showCheckout: false, //Determines whether to show the cart page or lessons page
                 lessons: [], //lessons,
-                //filteredLessons: [],
+                filteredLessons: [],
                 cart: [], //Shopping cart
                 sortBy: 'subject', //Default sorting attribute
                 sortOrder: 'asc', //Default sort order
@@ -240,10 +240,10 @@
                         item.lesson.availability++;
                     }
                 },
-                //sortLessons() {
+                sortLessons() {
                     // Sorting method when the sorting options change
-                    //this.sortedLessons();
-                //},
+                    this.sortedLessons();
+                },
                 toggleSortOrder() {
                     // Toggle sorting between ascending and descending
                     this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
