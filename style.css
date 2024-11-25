@@ -53,6 +53,16 @@ body {
     margin-top: 10px;
 }
 
+ul {
+    list-style-type: none; /* Removes bullet points globally */
+    padding: 0; /* Removes any default padding */
+    margin: 0; /* Removes any default margin */
+}
+
+li {
+    margin: 5px 0; /* Optional: Add spacing between items for better readability */
+}
+
 .cart-toggle button {
     background-color: #4CAF50;
     color: white;
