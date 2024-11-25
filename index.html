@@ -184,7 +184,7 @@
             },
             //Fetch lessons 
             created: function () {
-                fetch("https://webstore-lessons1.onrender.com")
+                fetch("https://webstore-lessons1.onrender.com/lessons")
                     .then(response => {
                         if (!response.ok) {
                             return response.text().then(errorMessage => {
