@@ -214,7 +214,7 @@
                 },
                 removeFromCart(item, index) {
                     //Add back availability for the lesson
-                    let lesson = this.lessons.find(lesson => lesson.id === item.id);
+                    const lesson = this.lessons.find(lesson => lesson.id === item.lesson.id);
                     if (lesson) {
                         lesson.availability += item.quantity; //Add back availability for the lesson
                     }
